@@ -3,7 +3,8 @@ pipeline {
   agent any
 
   environment {
-    DOCKER_REPOSITORY = "dahansop/jenkinsexam"
+    DIOCKER_ROOT_REPOSITORY = "dahansop"
+    DOCKER_REPOSITORY = $DIOCKER_ROOT_REPOSITORY"/jenkinsexam"
     DOCKER_TAG = "V${BUILD_ID}.0"
     IMAGE_MOVIE = "movie"
     IMAGE_CAST = "cast"
