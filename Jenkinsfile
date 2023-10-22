@@ -39,7 +39,7 @@ pipeline {
       steps {
         script {
           sh '''
-            docker login -u dahansop -p $DOCKER_PASS
+            echo $DOCKER_PASS | docker login --username $DOCKER_ROOT_REPOSITORY --password-stdin
             docker push $DOCKER_REPOSITORY/$IMAGE_CAST:$DOCKER_TAG
             docker push $DOCKER_REPOSITORY/$IMAGE_MOVIE:$DOCKER_TAG
           '''
