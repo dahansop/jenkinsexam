@@ -23,8 +23,6 @@ pipeline {
       steps {
         sh '''
           docker rm -f $IMAGE_MOVIE
-          cd ../movie-service
-          pwd
           docker build -t $DOCKER_REPOSITORY-$IMAGE_MOVIE:$DOCKER_TAG ./movie-service
         '''
       }
