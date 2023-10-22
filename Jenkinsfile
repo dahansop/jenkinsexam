@@ -17,7 +17,9 @@ pipeline {
           steps {
             sh '''
               docker rm -f $IMAGE_CAST
-              docker build -t $DOCKER_REPOSITORY-$IMAGE_CAST:$DOCKER_TAG cast-service
+              cd cast-service
+              pwd
+              docker build -t $DOCKER_REPOSITORY-$IMAGE_CAST:$DOCKER_TAG .
             '''
           }
         }
@@ -25,7 +27,9 @@ pipeline {
           steps {
             sh '''
               docker rm -f $IMAGE_MOVIE
-              docker build -t $DOCKER_REPOSITORY-$IMAGE_MOVIE:$DOCKER_TAG movie-service
+              cd ../movie-service
+              pwd
+              docker build -t $DOCKER_REPOSITORY-$IMAGE_MOVIE:$DOCKER_TAG .
             '''
           }
         }
