@@ -31,15 +31,21 @@ pipeline {
       }
     }
 
-    //stage('run and test image') {
-    //  steps {
-    //    script {
-    //      sh '''
-    //        docker run -d -p 8002:8000 --name $IMAGE_MOVIE $DOCKER_REPOSITORY/$IMAGE_MOVIE:$DOCKER_TAG
-    //        curl http://localhost:8001/api/v1/movies
-    //      '''
-    //    }
-    //  }
-    //}
+    stage('push image') {
+      environment {
+        DOCKER_PASS = credentials("DOCKER_HUB_PASS")
+      }
+      steps {
+        script {
+          sh '''
+            docker login -u $DOCKER_REPOSITORY -p $DOCKER_PASS
+            docker push $DOCKER_REPOSITORY/$IMAGE_CAST:$DOCKER_TAG
+            docker push $DOCKER_REPOSITORY/$IMAGE_MOVIE:$DOCKER_TAG
+          '''
+        }
+      }
+    }
+
+
   }
 }
