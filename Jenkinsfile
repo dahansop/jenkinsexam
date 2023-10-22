@@ -39,8 +39,7 @@ pipeline {
       steps {
         script {
           sh '''
-            echo $DOCKER_PASS
-            docker login -u $DIOCKER_ROOT_REPOSITORY -p $DOCKER_PASS
+            docker login -u $DOCKER_ROOT_REPOSITORY -p $DOCKER_PASS
             docker push $DOCKER_REPOSITORY/$IMAGE_CAST:$DOCKER_TAG
             docker push $DOCKER_REPOSITORY/$IMAGE_MOVIE:$DOCKER_TAG
           '''
