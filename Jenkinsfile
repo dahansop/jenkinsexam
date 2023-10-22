@@ -1,7 +1,12 @@
 pipeline {
+
+  agent any
+
   stages {
     stage('Greeting') {
-      echo 'hello Datascientest'
+      steps {
+        echo 'hello Datascientest'
+      }
     }
   }
 }
