@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: cast-db-configmap
 data:
-  POSTGRES_DB: cast_db_dev
+  POSTGRES_DB: castdb
   POSTGRES_HOST_AUTH_METHOD: trust

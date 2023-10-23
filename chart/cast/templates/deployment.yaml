@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: cast
-          image: "dahansop/jenkinsexam-cast:V24.0"
+          image: "dahansop/jenkinsexam-cast:V25.0"
           imagePullPolicy: IfNotPresent
           envFrom:
             - secretRef:
