@@ -13,7 +13,7 @@ spec:
           serviceName: casts-service
           port: 8001
       - path: /{{ .Release.Namespace }}/api/v1/movies
-          backend:
-            serviceName: movies-service
-            port: 8002
+        backend:
+          serviceName: movies-service
+          port: 8002
 
