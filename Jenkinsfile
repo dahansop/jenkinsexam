@@ -46,6 +46,7 @@ pipeline {
     stage('deploy dev') {
       environment {
         KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
+        KUBE_NAMESPACE = dev
       }
       steps {
         script {
@@ -53,10 +54,70 @@ pipeline {
             rm -Rf .kube
             mkdir .kube
             cat $KUBECONFIG > .kube/config
-            sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" chart/cast/values.yaml
-            helm upgrade --install cast chart/cast --values=chart/cast/values.yaml --namespace dev
-            sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" chart/movie/values.yaml
-            helm upgrade --install movie chart/movie --values=chart/movie/values.yaml --namespace dev
+            sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" chart/$IMAGE_CAST/values.yaml
+            helm upgrade --install $DOCKER_REPOSITORY-$IMAGE_CAST chart/$IMAGE_CAST --values=chart/$IMAGE_CAST/values.yaml --namespace $KUBE_NAMESPACE
+            sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" chart/$IMAGE_MOVIE/values.yaml
+            helm upgrade --install $DOCKER_REPOSITORY-$IMAGE_MOVIE chart/$IMAGE_MOVIE --values=chart/$IMAGE_MOVIE/values.yaml --namespace $KUBE_NAMESPACE
+          '''
+        }
+      }
+    }
+
+    stage('deploy qa') {
+      environment {
+        KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
+        KUBE_NAMESPACE = qa
+      }
+      steps {
+        script {
+          sh '''
+            rm -Rf .kube
+            mkdir .kube
+            cat $KUBECONFIG > .kube/config
+            sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" chart/$IMAGE_CAST/values.yaml
+            helm upgrade --install $DOCKER_REPOSITORY-$IMAGE_CAST chart/$IMAGE_CAST --values=chart/$IMAGE_CAST/values.yaml --namespace $KUBE_NAMESPACE
+            sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" chart/$IMAGE_MOVIE/values.yaml
+            helm upgrade --install $DOCKER_REPOSITORY-$IMAGE_MOVIE chart/$IMAGE_MOVIE --values=chart/$IMAGE_MOVIE/values.yaml --namespace $KUBE_NAMESPACE
+          '''
+        }
+      }
+    }
+
+    stage('deploy staging') {
+      environment {
+        KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
+        KUBE_NAMESPACE = staging
+      }
+      steps {
+        script {
+          sh '''
+            rm -Rf .kube
+            mkdir .kube
+            cat $KUBECONFIG > .kube/config
+            sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" chart/$IMAGE_CAST/values.yaml
+            helm upgrade --install $DOCKER_REPOSITORY-$IMAGE_CAST chart/$IMAGE_CAST --values=chart/$IMAGE_CAST/values.yaml --namespace $KUBE_NAMESPACE
+            sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" chart/$IMAGE_MOVIE/values.yaml
+            helm upgrade --install $DOCKER_REPOSITORY-$IMAGE_MOVIE chart/$IMAGE_MOVIE --values=chart/$IMAGE_MOVIE/values.yaml --namespace $KUBE_NAMESPACE
+          '''
+        }
+      }
+    }
+
+    stage('deploy prod') {
+      environment {
+        KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
+        KUBE_NAMESPACE = prod
+      }
+      steps {
+        script {
+          sh '''
+            rm -Rf .kube
+            mkdir .kube
+            cat $KUBECONFIG > .kube/config
+            sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" chart/$IMAGE_CAST/values.yaml
+            helm upgrade --install $DOCKER_REPOSITORY-$IMAGE_CAST chart/$IMAGE_CAST --values=chart/$IMAGE_CAST/values.yaml --namespace $KUBE_NAMESPACE
+            sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" chart/$IMAGE_MOVIE/values.yaml
+            helm upgrade --install $DOCKER_REPOSITORY-$IMAGE_MOVIE chart/$IMAGE_MOVIE --values=chart/$IMAGE_MOVIE/values.yaml --namespace $KUBE_NAMESPACE
           '''
         }
       }
