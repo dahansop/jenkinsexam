@@ -104,6 +104,9 @@ pipeline {
     }
 
     stage('deploy prod') {
+      when {
+        branch 'master'
+      }
       environment {
         KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
         KUBE_NAMESPACE = prod
