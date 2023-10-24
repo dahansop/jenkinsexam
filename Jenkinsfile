@@ -50,14 +50,12 @@ pipeline {
       steps {
         script {
           sh '''
-            rm -Rf .kube
-            mkdir .kube
-            ls
-            cat $KUBECONFIG > .kube/config
-            cp fastapi/values.yaml values.yml
-            cat values.yml
-            sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
-            helm upgrade --install app fastapi --values=values.yml --namespace dev
+            export $KUBECONFIG
+            echo $KUBECONFIG
+            sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" chart/cast/values.yml
+            helm upgrade --install cast chart/cast --values=/chart/cast/values.yml --namespace dev
+            sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" chart/movie/values.yml
+            helm upgrade --install movie chart/movie --values=/chart/movie/values.yml --namespace dev
           '''
         }
       }
