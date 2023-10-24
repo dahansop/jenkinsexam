@@ -54,9 +54,9 @@ pipeline {
             mkdir .kube
             cat $KUBECONFIG > .kube/config
             sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" chart/cast/values.yaml
-            helm upgrade --install cast chart/cast --values=/chart/cast/values.yaml --namespace dev
+            helm upgrade --install cast chart/cast --values=chart/cast/values.yaml --namespace dev
             sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" chart/movie/values.yaml
-            helm upgrade --install movie chart/movie --values=/chart/movie/values.yaml --namespace dev
+            helm upgrade --install movie chart/movie --values=chart/movie/values.yaml --namespace dev
           '''
         }
       }
