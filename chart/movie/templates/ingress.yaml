@@ -1,24 +1,19 @@
-apiVersion: networking.k8s.io/v1
+apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: {{ .Release.Namespace }}-app-ingress
   annotations:
-    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
-  tls:
-    - host:
-      - exam.datascientest.sophied.cloudns.ph/{{ .Release.Namespace }}
-      secretName: {{ .Release.Namespace }}
-      rules:
-      - host: exam.datascientest.sophied.cloudns.ph/{{ .Release.Namespace }}
-        http:
-          paths:
-          - path: /api/v1/casts
-            backend: 
-              serviceName: casts-service
-              port: 8001
-          - path: /api/v1/movies
-            backend:
-              serviceName: movies-service
-              port: 8002
+  rules:
+  - http:
+      paths:
+      - path: /{{ .Release.Namespace }}/api/v1/casts
+        backend: 
+          serviceName: casts-service
+          port: 8001
+      - path: /{{ .Release.Namespace }}/api/v1/movies
+          backend:
+            serviceName: movies-service
+            port: 8002
 
