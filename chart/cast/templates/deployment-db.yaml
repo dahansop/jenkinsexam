@@ -18,10 +18,8 @@ spec:
       containers:
       - name: {{ .Chart.Name }}-db
 #      - name: chart-db
-        image: "{{ .Values.imagedb.repository }}:{{ .Values.imagedb.tag | default .Chart.AppVersion }}"
-        imagePullPolicy: {{ .Values.imagedb.imagePullPolicy }}
-#        image: "postgres:12.1-alpine"
-#        imagePullPolicy: IfNotPresent
+        image: "postgres:12.1-alpine"
+        imagePullPolicy: IfNotPresent
         envFrom:
         - secretRef:
             name: {{ .Chart.Name }}-db-secret

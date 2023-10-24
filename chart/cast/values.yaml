@@ -16,11 +16,6 @@ service:
 configmap:
   dbname: castdb
   hostAuthMethod: trust
-  
-imagedb:
-  repository: postgres
-  tag: 12.1-alpine
-  imagePullPolicy: IfNotPresent
 
 persistencedb:
   existingClaim: ""

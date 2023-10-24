@@ -17,11 +17,9 @@ spec:
     spec:
       containers:
       - name: {{ .Chart.Name }}-db
-        image: "{{ .Values.imagedb.repository }}:{{ .Values.imagedb.tag | default .Chart.AppVersion }}"
-        imagePullPolicy: {{ .Values.imagedb.imagePullPolicy }}
 #      - name: movie-db
-#        image: "postgres:12.1-alpine"
-#        imagePullPolicy: IfNotPresent
+        image: "postgres:12.1-alpine"
+        imagePullPolicy: IfNotPresent
         envFrom:
         - secretRef:
             name: {{ .Chart.Name }}-db-secret
