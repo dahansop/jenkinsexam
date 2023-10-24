@@ -54,10 +54,8 @@ pipeline {
             rm -Rf .kube
             mkdir .kube
             cat $KUBECONFIG > .kube/config
-            sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" chart/$IMAGE_CAST/values.yaml
-            helm upgrade --install $IMAGE_CAST chart/$IMAGE_CAST --values=chart/$IMAGE_CAST/values.yaml --namespace $KUBE_NAMESPACE
-            sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" chart/$IMAGE_MOVIE/values.yaml
-            helm upgrade --install $IMAGE_MOVIE chart/$IMAGE_MOVIE --values=chart/$IMAGE_MOVIE/values.yaml --namespace $KUBE_NAMESPACE
+            helm upgrade --install $IMAGE_CAST chart/$IMAGE_CAST --values=chart/$IMAGE_CAST/values.yaml --namespace $KUBE_NAMESPACE --set tag.name="${DOCKER_TAG}"
+            helm upgrade --install $IMAGE_MOVIE chart/$IMAGE_MOVIE --values=chart/$IMAGE_MOVIE/values.yaml --namespace $KUBE_NAMESPACE --set tag.name="${DOCKER_TAG}"
           '''
         }
       }
@@ -74,10 +72,8 @@ pipeline {
             rm -Rf .kube
             mkdir .kube
             cat $KUBECONFIG > .kube/config
-            sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" chart/$IMAGE_CAST/values.yaml
-            helm upgrade --install $IMAGE_CAST chart/$IMAGE_CAST --values=chart/$IMAGE_CAST/values.yaml --namespace $KUBE_NAMESPACE
-            sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" chart/$IMAGE_MOVIE/values.yaml
-            helm upgrade --install $IMAGE_MOVIE chart/$IMAGE_MOVIE --values=chart/$IMAGE_MOVIE/values.yaml --namespace $KUBE_NAMESPACE
+            helm upgrade --install $IMAGE_CAST chart/$IMAGE_CAST --values=chart/$IMAGE_CAST/values.yaml --namespace $KUBE_NAMESPACE --set tag.name="${DOCKER_TAG}"
+            helm upgrade --install $IMAGE_MOVIE chart/$IMAGE_MOVIE --values=chart/$IMAGE_MOVIE/values.yaml --namespace $KUBE_NAMESPACE --set tag.name="${DOCKER_TAG}"
           '''
         }
       }
@@ -94,10 +90,8 @@ pipeline {
             rm -Rf .kube
             mkdir .kube
             cat $KUBECONFIG > .kube/config
-            sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" chart/$IMAGE_CAST/values.yaml
-            helm upgrade --install $IMAGE_CAST chart/$IMAGE_CAST --values=chart/$IMAGE_CAST/values.yaml --namespace $KUBE_NAMESPACE
-            sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" chart/$IMAGE_MOVIE/values.yaml
-            helm upgrade --install $IMAGE_MOVIE chart/$IMAGE_MOVIE --values=chart/$IMAGE_MOVIE/values.yaml --namespace $KUBE_NAMESPACE
+            helm upgrade --install $IMAGE_CAST chart/$IMAGE_CAST --values=chart/$IMAGE_CAST/values.yaml --namespace $KUBE_NAMESPACE --set tag.name="${DOCKER_TAG}"
+            helm upgrade --install $IMAGE_MOVIE chart/$IMAGE_MOVIE --values=chart/$IMAGE_MOVIE/values.yaml --namespace $KUBE_NAMESPACE --set tag.name="${DOCKER_TAG}"
           '''
         }
       }
@@ -117,10 +111,8 @@ pipeline {
             rm -Rf .kube
             mkdir .kube
             cat $KUBECONFIG > .kube/config
-            sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" chart/$IMAGE_CAST/values.yaml
-            helm upgrade --install $IMAGE_CAST chart/$IMAGE_CAST --values=chart/$IMAGE_CAST/values.yaml --namespace $KUBE_NAMESPACE
-            sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" chart/$IMAGE_MOVIE/values.yaml
-            helm upgrade --install $IMAGE_MOVIE chart/$IMAGE_MOVIE --values=chart/$IMAGE_MOVIE/values.yaml --namespace $KUBE_NAMESPACE 
+            helm upgrade --install $IMAGE_CAST chart/$IMAGE_CAST --values=chart/$IMAGE_CAST/values.yaml --namespace $KUBE_NAMESPACE --set tag.name="${DOCKER_TAG}"
+            helm upgrade --install $IMAGE_MOVIE chart/$IMAGE_MOVIE --values=chart/$IMAGE_MOVIE/values.yaml --namespace $KUBE_NAMESPACE --set tag.name="${DOCKER_TAG}"
           '''
         }
       }
