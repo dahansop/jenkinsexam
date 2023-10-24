@@ -50,7 +50,10 @@ pipeline {
       steps {
         script {
           sh '''
-            export $KUBECONFIG
+            rm -Rf .kube
+            mkdir .kube
+            ls
+            cat $KUBECONFIG > .kube/config
             echo $KUBECONFIG
             sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" chart/cast/values.yml
             helm upgrade --install cast chart/cast --values=/chart/cast/values.yml --namespace dev
