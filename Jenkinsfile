@@ -46,7 +46,7 @@ pipeline {
     stage('deploy dev') {
       environment {
         KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
-        KUBE_NAMESPACE = dev
+        KUBE_NAMESPACE = "dev"
       }
       steps {
         script {
@@ -66,7 +66,7 @@ pipeline {
     stage('deploy qa') {
       environment {
         KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
-        KUBE_NAMESPACE = qa
+        KUBE_NAMESPACE = "qa"
       }
       steps {
         script {
@@ -86,7 +86,7 @@ pipeline {
     stage('deploy staging') {
       environment {
         KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
-        KUBE_NAMESPACE = staging
+        KUBE_NAMESPACE = "staging"
       }
       steps {
         script {
@@ -105,11 +105,11 @@ pipeline {
 
     stage('deploy prod') {
       when {
-        branch 'master'
+        branch "master"
       }
       environment {
         KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
-        KUBE_NAMESPACE = prod
+        KUBE_NAMESPACE = "prod"
       }
       steps {
         script {
