@@ -1,20 +1,25 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ .Release.Namespace }}-app-ingress
   namespace: {{ .Release.Namespace }}
   annotations:
+    kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
   - http:
       paths:
       - path: /{{ .Release.Namespace }}/api/v1/casts
+        pathType: Prefix
         backend: 
-          serviceName: casts-service
-          port: 8001
+          service:
+            serviceName: cast-service
+            port: 8001
       - path: /{{ .Release.Namespace }}/api/v1/movies
+        pathType: Prefix
         backend:
-          serviceName: movies-service
-          port: 8002
+          service:
+            serviceName: movies-service
+            port: 8002
 
