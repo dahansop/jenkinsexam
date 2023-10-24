@@ -15,11 +15,13 @@ spec:
         backend: 
           service:
             serviceName: cast-service
-            port: 8001
+            port: 
+              number: 8001
       - path: /{{ .Release.Namespace }}/api/v1/movies
         pathType: Prefix
         backend:
           service:
             serviceName: movies-service
-            port: 8002
+            port: 
+              number: 8002
 
