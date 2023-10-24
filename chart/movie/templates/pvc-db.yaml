@@ -4,11 +4,15 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: {{ .Chart.Name }}-db-pvc
+#  name: movie-db-pvc
 spec:
   storageClassName: {{ .Values.persistencedb.storageClassName | default "local-path" }}
+#  storageClassName: "local-path"
   accessModes:
     - {{ .Values.persistencedb.accessMode | default "ReadWriteOnce" }}
+#    - "ReadWriteOnce"
   resources:
     requests:
+#      storage: "1Gi"
       storage: {{ .Values.persistencedb.size | default "1Gi" }}
 {{ end }}

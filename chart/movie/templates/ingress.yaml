@@ -2,26 +2,26 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ .Release.Namespace }}-app-ingress
-  namespace: {{ .Release.Namespace }}
-  annotations:
-    kubernetes.io/ingress.class: "nginx"
-    nginx.ingress.kubernetes.io/rewrite-target: /
+#  name: app-ingress
 spec:
+  ingressClassName: traefik
   rules:
-  - http:
+#  - host: dev.datascientest.sophied.cloudns.ph
+  - host: {{ .Release.Namespace }}.sophied.cloudns.ph
+    http:
       paths:
-      - path: /{{ .Release.Namespace }}/api/v1/casts
+      - path: /api/v1/casts
         pathType: Prefix
         backend: 
           service:
-            serviceName: cast-service
+            name: cast-service
             port: 
-              number: 8001
-      - path: /{{ .Release.Namespace }}/api/v1/movies
+              number: 8000
+      - path: /api/v1/movies
         pathType: Prefix
         backend:
           service:
-            serviceName: movies-service
+            name: movie-service
             port: 
-              number: 8002
+              number: 8000
 
