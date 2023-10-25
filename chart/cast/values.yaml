@@ -6,7 +6,7 @@ image:
   imagePullPolicy: IfNotPresent
 
 secret:
-  databaseUri: "postgresql://admin:password@movie-db:5432/castdb"
+  databaseUri: "postgresql://admin:password@cast-db:5432/castdb"
 
 service:
   type: ClusterIP
